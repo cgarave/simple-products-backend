@@ -12,8 +12,13 @@ router.post('/addItem', async (req, res) => {
     res.status(201).send('success');
 })
 
-router.get('/:id', (req, res) => {
-    res.send(req.params.id);
+router.put('/:id', async (req, res) => {
+    try {
+        await Items.updateOne({ _id: req.params.id }, req.body);
+        res.status(200).send('success');
+    } catch (err) {
+        console.log(err);
+    }
 })
 
 router.delete('/:id', async (req, res) => {
